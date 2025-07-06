@@ -1,52 +1,249 @@
-App version: 1.5.3 (1050300)
-Device information: Android 14 (API 34)
-Supported ABIs: [arm64-v8a, armeabi-v7a, armeabi]
-spotDL version: v4.2.11
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carrusel 3D Romántico</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+* { box-sizing: border-box; }
 
-kotlinx.serialization.SerializationException: Something bad happened while trying to deserialize the response: 
- 
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-  <head>
-    <title>403 URL Blocked</title>
-  </head>
-  <body>
-    <h1>Error 403 URL Blocked</h1>
-    <p>URL Blocked</p>
-    <h3>Error 54113</h3>
-    <p>Details: cache-lim12127-LIM 1751811791 135764076</p>
-    <hr>
-    <p>Varnish cache server</p>
-  </body>
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  background: linear-gradient(to top, #D3D3D3, #8D1A00, #D3D3D3);
+  font-family: 'Great Vibes', cursive;
+  color: white;
+}
+
+/* Corazones flotantes */
+.hearts {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  transform: rotate(45deg);
+  animation: float 10s linear infinite;
+}
+.heart::before, .heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+}
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: -10px; top: 0; }
+
+@keyframes float {
+  0% { transform: translateY(100vh) scale(1) rotate(45deg); opacity: 1; }
+  100% { transform: translateY(-10vh) scale(0.5) rotate(45deg); opacity: 0; }
+}
+
+/* Texto superior fijo */
+h1 {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  z-index: 2;
+  font-size: 1.8em;
+}
+
+/* Carrusel centrado */
+.carousel-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 280px;
+  perspective: 900px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel {
+  width: 200px;
+  height: 280px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.carousel-item {
+  position: absolute;
+  width: 180px;
+  height: 260px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.carousel-item p {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #fff;
+}
+
+/* Botones al borde inferior MÁS ABAJO */
+.controls {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+.controls button {
+  background: #ff4081;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin: 0 10px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+}
+
+.controls button:hover {
+  background: #e91e63;
+}
+
+audio {
+  display: none;
+}
+</style>
+</head>
+<body>
+
+
+<!-- Corazones animados -->
+<div class="hearts" id="heart-container"></div>
+
+<!-- Texto superior -->
+<h1>Feliz Aniversario Mi Amor ❤️</h1>
+
+<!-- Carrusel 3D -->
+<div class="carousel-container">
+  <div class="carousel" id="carousel">
+    <div class="carousel-item">
+      <img src="Juntos.jpg" alt="Foto 1">
+      <p>Nunca olvidaré ese día cuando tu chichi me alegro el día🤭 22/06/25</p>
+    </div>
+    <div class="carousel-item">
+      <img src="Teamo.jpg" alt="Foto 2">
+      <p>Te Amooo negra👩🏽‍❤️‍💋‍👨🏻</p>
+    </div>
+    <div class="carousel-item">
+      <video width="70%" height="250" autoplay muted loop>
+        <source src="Minegra.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+      <p>Nuestro primer tiktok juntos🥰🫶</p>
+    </div>
+    <div class="carousel-item">
+      <img src="1.jpg" alt="Foto 4">
+      <p>Gracias por existir❤️‍🩹</p>
+    </div>
+    <div class="carousel-item">
+      <img src="NATALY.jpg" alt="Foto 5">
+      <p>Nunca olvidaré nuestra primera foto juntos 18/03/25</p>
+    </div>
+    <div class="carousel-item">
+      <img src="3.jpg" alt="Foto 6">
+      <p>Mi amor por ti crece cada día 😻😽</p>
+    </div>
+    <div class="carousel-item">
+      <video width="70%" height="250" autoplay muted loop>
+        <source src="Teamo.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+      <p>Mi primer edit dedicado a lo mucho que te amo👩🏽‍❤️‍💋‍👨🏻 15/03/25</p>
+    </div>
+    <div class="carousel-item">
+      <img src="2.jpg" alt="Foto 8">
+      <p>El día que me sentí avergonzado para regalarte una flor amarilla🥲 21/03/25</p>
+    </div>
+  </div>
+</div>
+
+<!-- Botones de control abajo de la pantalla -->
+<div class="controls">
+  <button onclick="rotateCarousel(-1)">⏮</button>
+  <button onclick="rotateCarousel(1)">⏭</button>
+</div>
+
+<!-- Música -->
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio.
+</audio>
+
+<script>
+let angle = 0;
+
+function rotateCarousel(direction) {
+  angle += direction * (360 / document.querySelectorAll('.carousel-item').length);
+  document.getElementById("carousel").style.transform = `rotateY(${angle}deg)`;
+}
+
+function positionItems() {
+  const items = document.querySelectorAll('.carousel-item');
+  const total = items.length;
+  const angleStep = 360 / total;
+
+  items.forEach((item, index) => {
+    const rotation = angleStep * index;
+    item.style.transform = `rotateY(${rotation}deg) translateZ(300px)`;
+  });
+}
+
+positionItems();
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+  document.getElementById("heart-container").appendChild(heart);
+  setTimeout(() => heart.remove(), 10000);
+}
+setInterval(createHeart, 300);
+</script>
+
+</body>
 </html>
-
-	at com.bobbyesp.library.data.remote.auth.SpotifyAuthHandler$createCredentials$2.invokeSuspend(SpotifyAuthHandler.kt:101)
-	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
-	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:101)
-	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:113)
-	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:589)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:823)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:720)
-	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:707)
-	Suppressed: kotlinx.coroutines.internal.DiagnosticCoroutineContextException: [StandaloneCoroutine{Cancelling}@5d484b7, Dispatchers.IO]
-Caused by: kotlinx.serialization.json.internal.JsonDecodingException: Unexpected JSON token at offset 1: Expected start of the object '{', but had '<' instead at path: $
-JSON input: 
-<?xml version="1.0" encoding=".....
-	at kotlinx.serialization.json.internal.JsonExceptionsKt.JsonDecodingException(JsonExceptions.kt:24)
-	at kotlinx.serialization.json.internal.JsonExceptionsKt.JsonDecodingException(JsonExceptions.kt:32)
-	at kotlinx.serialization.json.internal.AbstractJsonLexer.fail(AbstractJsonLexer.kt:598)
-	at kotlinx.serialization.json.internal.AbstractJsonLexer.fail$default(AbstractJsonLexer.kt:596)
-	at kotlinx.serialization.json.internal.AbstractJsonLexer.fail$kotlinx_serialization_json(AbstractJsonLexer.kt:233)
-	at kotlinx.serialization.json.internal.AbstractJsonLexer.fail$kotlinx_serialization_json$default(AbstractJsonLexer.kt:228)
-	at kotlinx.serialization.json.internal.AbstractJsonLexer.unexpectedToken(AbstractJsonLexer.kt:225)
-	at kotlinx.serialization.json.internal.StringJsonLexer.consumeNextToken(StringJsonLexer.kt:74)
-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.beginStructure(StreamingJsonDecoder.kt:102)
-	at com.bobbyesp.library.domain.auth.SpotifyCredentials$$serializer.deserialize(SpotifyCredentials.kt:5)
-	at com.bobbyesp.library.domain.auth.SpotifyCredentials$$serializer.deserialize(SpotifyCredentials.kt:5)
-	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableValue(StreamingJsonDecoder.kt:69)
-	at kotlinx.serialization.json.Json.decodeFromString(Json.kt:107)
-	at com.bobbyesp.library.data.remote.auth.SpotifyAuthHandler$createCredentials$2.invokeSuspend(SpotifyAuthHandler.kt:99)
-	... 8 more
