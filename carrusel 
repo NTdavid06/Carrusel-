@@ -1,0 +1,52 @@
+App version: 1.5.3 (1050300)
+Device information: Android 14 (API 34)
+Supported ABIs: [arm64-v8a, armeabi-v7a, armeabi]
+spotDL version: v4.2.11
+
+kotlinx.serialization.SerializationException: Something bad happened while trying to deserialize the response: 
+ 
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>403 URL Blocked</title>
+  </head>
+  <body>
+    <h1>Error 403 URL Blocked</h1>
+    <p>URL Blocked</p>
+    <h3>Error 54113</h3>
+    <p>Details: cache-lim12127-LIM 1751811791 135764076</p>
+    <hr>
+    <p>Varnish cache server</p>
+  </body>
+</html>
+
+	at com.bobbyesp.library.data.remote.auth.SpotifyAuthHandler$createCredentials$2.invokeSuspend(SpotifyAuthHandler.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:101)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:113)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:589)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:823)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:720)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:707)
+	Suppressed: kotlinx.coroutines.internal.DiagnosticCoroutineContextException: [StandaloneCoroutine{Cancelling}@5d484b7, Dispatchers.IO]
+Caused by: kotlinx.serialization.json.internal.JsonDecodingException: Unexpected JSON token at offset 1: Expected start of the object '{', but had '<' instead at path: $
+JSON input: 
+<?xml version="1.0" encoding=".....
+	at kotlinx.serialization.json.internal.JsonExceptionsKt.JsonDecodingException(JsonExceptions.kt:24)
+	at kotlinx.serialization.json.internal.JsonExceptionsKt.JsonDecodingException(JsonExceptions.kt:32)
+	at kotlinx.serialization.json.internal.AbstractJsonLexer.fail(AbstractJsonLexer.kt:598)
+	at kotlinx.serialization.json.internal.AbstractJsonLexer.fail$default(AbstractJsonLexer.kt:596)
+	at kotlinx.serialization.json.internal.AbstractJsonLexer.fail$kotlinx_serialization_json(AbstractJsonLexer.kt:233)
+	at kotlinx.serialization.json.internal.AbstractJsonLexer.fail$kotlinx_serialization_json$default(AbstractJsonLexer.kt:228)
+	at kotlinx.serialization.json.internal.AbstractJsonLexer.unexpectedToken(AbstractJsonLexer.kt:225)
+	at kotlinx.serialization.json.internal.StringJsonLexer.consumeNextToken(StringJsonLexer.kt:74)
+	at kotlinx.serialization.json.internal.StreamingJsonDecoder.beginStructure(StreamingJsonDecoder.kt:102)
+	at com.bobbyesp.library.domain.auth.SpotifyCredentials$$serializer.deserialize(SpotifyCredentials.kt:5)
+	at com.bobbyesp.library.domain.auth.SpotifyCredentials$$serializer.deserialize(SpotifyCredentials.kt:5)
+	at kotlinx.serialization.json.internal.StreamingJsonDecoder.decodeSerializableValue(StreamingJsonDecoder.kt:69)
+	at kotlinx.serialization.json.Json.decodeFromString(Json.kt:107)
+	at com.bobbyesp.library.data.remote.auth.SpotifyAuthHandler$createCredentials$2.invokeSuspend(SpotifyAuthHandler.kt:99)
+	... 8 more
